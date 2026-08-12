@@ -158,7 +158,7 @@ function generateTitleFromStack(stackInput: string): string {
 const DEFAULTS = {
   name: "",
   stack: "",
-  team: "Fine Tuned",
+  team: "",
   title: "",
 };
 
