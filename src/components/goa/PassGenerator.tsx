@@ -14,16 +14,146 @@ import {
 import { TicketPreview, type PassData } from "./TicketPreview";
 import { CoconutDrinkDoodle, FeniBottleDoodle, PalmDoodle } from "./doodles";
 
-const TITLES = [
-  "⚡ Sunset Shipmaster ⚡",
-  "⚡ Coconut-Powered Coder ⚡",
-  "⚡ Midnight Deploy Wizard ⚡",
-  "⚡ Neural Bug Hunter ⚡",
-  "⚡ Hardware Phantom ⚡",
-  "⚡ Full-Stack Beach Rebel ⚡",
-  "⚡ AI Protocol Engineer ⚡",
-  "⚡ The Sentinel Architect ⚡",
+const ROLE_TITLE_MAP: { keywords: string[]; titles: string[] }[] = [
+  {
+    keywords: [
+      "ai",
+      "ml",
+      "machine learning",
+      "llm",
+      "gpt",
+      "prompt",
+      "neural",
+      "agent",
+      "deep learning",
+      "nlp",
+      "model",
+    ],
+    titles: [
+      "⚡ Neural Model Wizard ⚡",
+      "⚡ AI Protocol Architect ⚡",
+      "⚡ LLM Prompt Master ⚡",
+      "⚡ Deep Learning Specialist ⚡",
+      "⚡ Autonomous Agent Builder ⚡",
+      "⚡ Neural Bug Hunter ⚡",
+      "⚡ Generative AI Visionary ⚡",
+      "⚡ Vector DB Strategist ⚡",
+    ],
+  },
+  {
+    keywords: [
+      "devops",
+      "cloud",
+      "k8s",
+      "kubernetes",
+      "docker",
+      "sre",
+      "ci/cd",
+      "infra",
+      "infrastructure",
+      "aws",
+      "azure",
+      "gcp",
+    ],
+    titles: [
+      "⚡ Kubernetes Cloud Master ⚡",
+      "⚡ Midnight CI/CD Deployer ⚡",
+      "⚡ Infrastructure Sentinel ⚡",
+      "⚡ Docker Container Captain ⚡",
+      "⚡ Zero-Downtime Architect ⚡",
+      "⚡ Cloud Pipeline Maestro ⚡",
+      "⚡ Terraform Commander ⚡",
+    ],
+  },
+  {
+    keywords: [
+      "full-stack",
+      "fullstack",
+      "frontend",
+      "backend",
+      "web",
+      "react",
+      "next",
+      "node",
+      "typescript",
+      "js",
+      "python",
+    ],
+    titles: [
+      "⚡ Full-Stack Beach Rebel ⚡",
+      "⚡ Sunset Shipmaster ⚡",
+      "⚡ Pixel-Perfect UI Architect ⚡",
+      "⚡ Full-Stack Code Commander ⚡",
+      "⚡ API & Database Ninja ⚡",
+      "⚡ Coconut-Powered Coder ⚡",
+    ],
+  },
+  {
+    keywords: ["security", "cyber", "ethic", "hacker", "pentest", "pwn", "crypto", "auth"],
+    titles: [
+      "⚡ Cyber Security Sentinel ⚡",
+      "⚡ Zero-Day Bug Hunter ⚡",
+      "⚡ Hardware Phantom ⚡",
+      "⚡ Encryption Guardian ⚡",
+      "⚡ Protocol Shield Master ⚡",
+    ],
+  },
+  {
+    keywords: ["mobile", "ios", "android", "flutter", "react native", "swift", "kotlin"],
+    titles: [
+      "⚡ Mobile App Maestro ⚡",
+      "⚡ Pocket Code Wizard ⚡",
+      "⚡ Cross-Platform Specialist ⚡",
+      "⚡ Touch UI Architect ⚡",
+    ],
+  },
+  {
+    keywords: ["web3", "blockchain", "crypto", "solana", "eth", "ethereum", "smart contract"],
+    titles: [
+      "⚡ Web3 Smart Contract Hacker ⚡",
+      "⚡ On-Chain Protocol Architect ⚡",
+      "⚡ Solana Speed Runner ⚡",
+      "⚡ Decentralized Rebel ⚡",
+    ],
+  },
+  {
+    keywords: ["design", "ui", "ux", "product", "figma", "css"],
+    titles: [
+      "⚡ Product Design Visionary ⚡",
+      "⚡ UX Magic Craftsman ⚡",
+      "⚡ Glassmorphism Artist ⚡",
+      "⚡ Creative Frontend Stylist ⚡",
+    ],
+  },
 ];
+
+function generateTitleFromStack(stackInput: string): string {
+  const clean = stackInput.trim().toLowerCase();
+  if (!clean) {
+    const defaultTitles = [
+      "⚡ Sunset Shipmaster ⚡",
+      "⚡ Coconut-Powered Coder ⚡",
+      "⚡ Midnight Deploy Wizard ⚡",
+      "⚡ Full-Stack Beach Rebel ⚡",
+    ];
+    return defaultTitles[Math.floor(Math.random() * defaultTitles.length)] ?? "⚡ Builder ⚡";
+  }
+
+  for (const group of ROLE_TITLE_MAP) {
+    if (group.keywords.some((kw) => clean.includes(kw))) {
+      return group.titles[Math.floor(Math.random() * group.titles.length)] ?? "⚡ Builder ⚡";
+    }
+  }
+
+  const formattedRole = stackInput.trim();
+  const customTemplates = [
+    `⚡ ${formattedRole} Wizard ⚡`,
+    `⚡ ${formattedRole} Architect ⚡`,
+    `⚡ ${formattedRole} Specialist ⚡`,
+    `⚡ ${formattedRole} Master ⚡`,
+  ];
+  return customTemplates[Math.floor(Math.random() * customTemplates.length)] ?? "⚡ Builder ⚡";
+}
 
 const DEFAULTS = {
   name: "",
@@ -231,7 +361,7 @@ export function PassGenerator() {
       const shareText = "Just generated my HH Goa 2026 Builder Access Pass 🚀 #FrameInGoa";
       const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
-      // 1. Web Share API with File attachment (Mobile OS & Web Share supported browsers)
+      // 1. Web Share API with image file attachment (native mobile share sheet)
       if (
         typeof navigator !== "undefined" &&
         navigator.canShare &&
@@ -241,6 +371,7 @@ export function PassGenerator() {
           await navigator.share({
             title: "HH Goa 2026 Builder Access Pass",
             text: shareText,
+            url: shareUrl,
             files: [file],
           });
           return;
@@ -249,28 +380,7 @@ export function PassGenerator() {
         }
       }
 
-      // 2. Desktop Fallback: Copy image blob to clipboard for easy Ctrl+V / Cmd+V pasting
-      let copiedToClipboard = false;
-      if (typeof navigator !== "undefined" && navigator.clipboard && window.ClipboardItem) {
-        try {
-          await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
-          copiedToClipboard = true;
-        } catch {
-          // Clipboard write fallback
-        }
-      }
-
-      // Automatically download ticket image as backup
-      const blobUrl = URL.createObjectURL(blob);
-      const downloadLink = document.createElement("a");
-      downloadLink.href = blobUrl;
-      downloadLink.download = fileName;
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
-
-      // Open Twitter intent composer
+      // 2. Direct Twitter Tweet Intent Fallback (with text & site link)
       const twitterIntentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
       const a = document.createElement("a");
       a.href = twitterIntentUrl;
@@ -279,12 +389,6 @@ export function PassGenerator() {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-
-      if (copiedToClipboard) {
-        alert(
-          "✨ Ticket image copied to your clipboard!\nPress Ctrl+V (or Cmd+V) to paste the image directly into your X post.",
-        );
-      }
     } catch (err) {
       console.error("Failed to share pass:", err);
     } finally {
@@ -488,8 +592,11 @@ export function PassGenerator() {
                       id="f-stack"
                       label="Stack / Role"
                       value={stack}
-                      onChange={setStack}
-                      placeholder="e.g. Full-Stack / AI Engineer"
+                      onChange={(val) => {
+                        setStack(val);
+                        setTitle(generateTitleFromStack(val));
+                      }}
+                      placeholder="e.g. AI Engineer, DevOps, Full-Stack..."
                     />
                   </div>
                   <div className="w-full min-w-0">
@@ -507,22 +614,21 @@ export function PassGenerator() {
                       label="Builder title"
                       value={title}
                       onChange={setTitle}
-                      placeholder="e.g. ⚡ Sunset Shipmaster ⚡"
+                      placeholder="e.g. ⚡ AI Protocol Architect ⚡"
                     />
                   </div>
                 </div>
                 <div className="mt-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
                   <button
                     type="button"
-                    onClick={() =>
-                      setTitle(TITLES[Math.floor(Math.random() * TITLES.length)] as string)
-                    }
+                    onClick={() => setTitle(generateTitleFromStack(stack))}
                     className="glow-pink inline-flex min-h-10 sm:min-h-12 items-center justify-center gap-2 rounded-full bg-goa-pink px-4 sm:px-6 text-[11px] sm:text-sm font-bold uppercase tracking-widest text-white w-full sm:w-auto"
                   >
                     <Sparkles className="size-3.5 sm:size-4" aria-hidden="true" /> Generate title
+                    for role
                   </button>
                   <span className="label-mono text-[9px] sm:text-xs text-center sm:text-left text-goa-green-deep/60">
-                    Get a random hacker title
+                    Generates a custom title based on your stack / role
                   </span>
                 </div>
               </div>

@@ -24,17 +24,17 @@ export type PassData = {
 const Field = ({ label, value }: { label: string; value: string }) => (
   <div>
     <div
-      className="text-goa-yellow"
+      className="text-goa-yellow uppercase"
       style={{ fontFamily: "var(--font-mono)", fontSize: 22, letterSpacing: "0.22em" }}
     >
       {label}
     </div>
     <div
-      className="text-white truncate overflow-hidden text-ellipsis"
+      className="text-white truncate overflow-hidden text-ellipsis uppercase"
       style={{ fontSize: 40, fontWeight: 700, lineHeight: 1.15, marginTop: 6 }}
       title={value}
     >
-      {value}
+      {value.toUpperCase()}
     </div>
   </div>
 );
@@ -43,7 +43,7 @@ const Field = ({ label, value }: { label: string; value: string }) => (
 export const TicketPreview = forwardRef<HTMLDivElement, { data: PassData }>(({ data }, ref) => (
   <div
     ref={ref}
-    className="relative overflow-hidden bg-goa-green-deep"
+    className="relative overflow-hidden bg-goa-green-deep uppercase"
     style={{ width: 1080, height: 1350, borderRadius: 32, border: "4px solid var(--goa-yellow)" }}
   >
     <div className="dot-matrix absolute inset-0" />
@@ -182,13 +182,13 @@ export const TicketPreview = forwardRef<HTMLDivElement, { data: PassData }>(({ d
         <Field label="ISSUED IN" value="GOA, INDIA" />
         <div style={{ gridColumn: "span 2" }}>
           <div
-            className="text-goa-yellow"
+            className="text-goa-yellow uppercase"
             style={{ fontFamily: "var(--font-mono)", fontSize: 22, letterSpacing: "0.22em" }}
           >
             BUILDER TITLE
           </div>
           <div
-            className="inline-block max-w-full truncate bg-goa-pink text-goa-yellow"
+            className="inline-block max-w-full truncate bg-goa-pink text-goa-yellow uppercase"
             style={{
               marginTop: 12,
               padding: "16px 34px",
@@ -197,7 +197,7 @@ export const TicketPreview = forwardRef<HTMLDivElement, { data: PassData }>(({ d
               fontWeight: 700,
             }}
           >
-            {data.title.trim() || "⚡ Sunset Shipmaster ⚡"}
+            {(data.title.trim() || "⚡ Sunset Shipmaster ⚡").toUpperCase()}
           </div>
         </div>
       </div>
