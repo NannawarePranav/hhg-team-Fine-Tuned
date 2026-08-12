@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="goa-sunset" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF2E63" />
+      <stop offset="55%" stop-color="#FF9F1C" />
+      <stop offset="100%" stop-color="#024B40" />
+    </linearGradient>
+  </defs>
+  <!-- Rounded container -->
+  <rect width="64" height="64" rx="16" fill="url(#goa-sunset)" />
+  <!-- Glowing Sun -->
+  <circle cx="32" cy="24" r="11" fill="#FFE600" />
+  <!-- Palm Trunk -->
+  <path d="M 32 50 C 32 38, 30 31, 26 24" stroke="#FFE600" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- Palm Fronds -->
+  <path d="M 26 24 C 18 19, 12 21, 10 25" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M 26 24 C 23 15, 28 11, 35 13" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M 26 24 C 33 21, 40 23, 44 27" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Waves -->
+  <path d="M 8 52 Q 20 46 32 52 T 56 52" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M 12 57 Q 24 53 36 57 T 52 57" stroke="#FFE600" stroke-width="1.8" stroke-linecap="round" opacity="0.8" fill="none"/>
+</svg>

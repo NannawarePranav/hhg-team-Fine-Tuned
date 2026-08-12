@@ -200,9 +200,31 @@ export function PassGenerator() {
     }
   };
 
-  const share = () => {
-    const text = "Just generated my HH Goa 2026 Builder Access Pass 🚀\n#FrameInGoa";
-    window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank");
+  const share = async () => {
+    const shareText = "Just generated my HH Goa 2026 Builder Access Pass 🚀\n#FrameInGoa";
+    const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+    const twitterIntentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: "HH Goa 2026 Builder Access Pass",
+          text: shareText,
+          url: shareUrl,
+        });
+        return;
+      } catch (err) {
+        if ((err as Error).name === "AbortError") return;
+      }
+    }
+
+    const a = document.createElement("a");
+    a.href = twitterIntentUrl;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   const reset = () => {
