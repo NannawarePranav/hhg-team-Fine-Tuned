@@ -78,7 +78,12 @@ function Index() {
       <header className="sticky top-0 z-50 border-b border-goa-yellow/20 bg-goa-green/85 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2.5 sm:px-6 sm:py-3">
           <div className="label-mono leading-tight text-goa-cream">
-            <div className="text-xs sm:text-sm font-bold text-goa-yellow">HH GOA 2026</div>
+            <div className="text-xs sm:text-sm font-bold text-goa-yellow flex items-center gap-1.5">
+              HH GOA 2026
+              <span className="rounded-full bg-goa-pink/20 border border-goa-pink/40 px-2 py-0.5 text-[9px] sm:text-[10px] text-goa-pink font-extrabold uppercase">
+                Team Fine Tuned
+              </span>
+            </div>
             <div className="text-[9px] sm:text-[10px] text-goa-cream/80">BUILDER PASS STUDIO</div>
           </div>
           <a
@@ -112,8 +117,12 @@ function Index() {
               गोवा
             </span>
           </div>
-          <p className="label-mono mt-4 text-[10px] text-goa-yellow sm:mt-6 sm:text-sm">
-            GOA, INDIA • 28 — 31 OCT 2026
+          <p className="label-mono mt-4 text-[10px] text-goa-yellow sm:mt-6 sm:text-sm flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2">
+            <span>GOA, INDIA • 28 — 31 OCT 2026</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="font-extrabold text-goa-pink uppercase">
+              PRESENTED BY TEAM FINE TUNED
+            </span>
           </p>
           <a
             href="#generator"

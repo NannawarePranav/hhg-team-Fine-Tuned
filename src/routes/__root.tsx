@@ -77,26 +77,42 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "HH Goa 2026 — Builder Access Pass Generator" },
+      { title: "HH Goa 2026 — Builder Access Pass Generator | Team Fine Tuned" },
       {
         name: "description",
-        content: "Generate your official Builder Access Pass for HH Goa 2026.",
+        content:
+          "Generate your official Builder Access Pass for HH Goa 2026. Presented by Team Fine Tuned.",
       },
-      { name: "author", content: "HH Goa 2026" },
-      { property: "og:title", content: "HH Goa 2026 — Builder Access Pass Generator" },
+      { name: "author", content: "Team Fine Tuned" },
+      {
+        property: "og:title",
+        content: "HH Goa 2026 — Builder Access Pass Generator | Team Fine Tuned",
+      },
       {
         property: "og:description",
-        content: "Generate your official Builder Access Pass for HH Goa 2026.",
+        content:
+          "Generate your official Builder Access Pass for HH Goa 2026. Presented by Team Fine Tuned.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/hero-goa-sunset.jpg" },
+      { property: "og:url", content: "https://hhg-team-fine-tuned.vercel.app/" },
+      {
+        property: "og:image",
+        content: "https://hhg-team-fine-tuned.vercel.app/hero-goa-sunset.jpg",
+      },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "HH Goa 2026 — Builder Access Pass Generator" },
+      {
+        name: "twitter:title",
+        content: "HH Goa 2026 — Builder Access Pass Generator | Team Fine Tuned",
+      },
       {
         name: "twitter:description",
-        content: "Generate your official Builder Access Pass for HH Goa 2026.",
+        content:
+          "Generate your official Builder Access Pass for HH Goa 2026. Presented by Team Fine Tuned.",
       },
-      { name: "twitter:image", content: "/hero-goa-sunset.jpg" },
+      {
+        name: "twitter:image",
+        content: "https://hhg-team-fine-tuned.vercel.app/hero-goa-sunset.jpg",
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

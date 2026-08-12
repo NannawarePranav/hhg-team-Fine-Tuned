@@ -158,7 +158,7 @@ function generateTitleFromStack(stackInput: string): string {
 const DEFAULTS = {
   name: "",
   stack: "",
-  team: "",
+  team: "Fine Tuned",
   title: "",
 };
 
@@ -358,8 +358,9 @@ export function PassGenerator() {
       const blob = await response.blob();
       const file = new File([blob], fileName, { type: "image/png" });
 
-      const shareText = "Just generated my HH Goa 2026 Builder Access Pass 🚀 #FrameInGoa";
-      const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+      const shareText =
+        "Just generated my HH Goa 2026 Builder Access Pass 🚀\nPresented by Team Fine Tuned #FrameInGoa";
+      const shareUrl = "https://hhg-team-fine-tuned.vercel.app/";
 
       // 1. Web Share API with image file attachment (native mobile share sheet)
       if (
@@ -417,6 +418,9 @@ export function PassGenerator() {
               <h2 className="font-display text-xl leading-tight text-goa-green-deep sm:text-3xl md:text-4xl">
                 🌴 Create your builder access pass
               </h2>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-goa-yellow/50 border border-goa-green-deep/20 px-3 py-1 text-[11px] sm:text-xs font-bold text-goa-green-deep mt-2.5">
+                <span>⚡ Presented by Team Fine Tuned</span>
+              </div>
 
               <div className="mt-5 sm:mt-8">
                 <p className="label-mono text-goa-pink text-[10px] sm:text-xs">
