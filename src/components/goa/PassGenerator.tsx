@@ -201,30 +201,95 @@ export function PassGenerator() {
   };
 
   const share = async () => {
-    const shareText = "Just generated my HH Goa 2026 Builder Access Pass 🚀\n#FrameInGoa";
-    const shareUrl = typeof window !== "undefined" ? window.location.href : "";
-    const twitterIntentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
-
-    if (typeof navigator !== "undefined" && navigator.share) {
+    if (!ticketRef.current) return;
+    setBusy(true);
+    try {
+      let dataUrl: string;
       try {
-        await navigator.share({
-          title: "HH Goa 2026 Builder Access Pass",
-          text: shareText,
-          url: shareUrl,
+        dataUrl = await toPng(ticketRef.current, { width: 1080, height: 1350, pixelRatio: 1 });
+      } catch {
+        dataUrl = await toPng(ticketRef.current, {
+          width: 1080,
+          height: 1350,
+          pixelRatio: 1,
+          skipFonts: true,
         });
-        return;
-      } catch (err) {
-        if ((err as Error).name === "AbortError") return;
       }
-    }
 
-    const a = document.createElement("a");
-    a.href = twitterIntentUrl;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+      const safeName = name.trim()
+        ? name
+            .trim()
+            .replace(/[^a-zA-Z0-9_\-\s]/g, "")
+            .replace(/\s+/g, "_")
+        : "Builder";
+      const fileName = `${safeName}_HH_Goa_2026_Pass.png`;
+
+      const response = await fetch(dataUrl);
+      const blob = await response.blob();
+      const file = new File([blob], fileName, { type: "image/png" });
+
+      const shareText = "Just generated my HH Goa 2026 Builder Access Pass 🚀 #FrameInGoa";
+      const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+
+      // 1. Web Share API with File attachment (Mobile OS & Web Share supported browsers)
+      if (
+        typeof navigator !== "undefined" &&
+        navigator.canShare &&
+        navigator.canShare({ files: [file] })
+      ) {
+        try {
+          await navigator.share({
+            title: "HH Goa 2026 Builder Access Pass",
+            text: shareText,
+            files: [file],
+          });
+          return;
+        } catch (err) {
+          if ((err as Error).name === "AbortError") return;
+        }
+      }
+
+      // 2. Desktop Fallback: Copy image blob to clipboard for easy Ctrl+V / Cmd+V pasting
+      let copiedToClipboard = false;
+      if (typeof navigator !== "undefined" && navigator.clipboard && window.ClipboardItem) {
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
+          copiedToClipboard = true;
+        } catch {
+          // Clipboard write fallback
+        }
+      }
+
+      // Automatically download ticket image as backup
+      const blobUrl = URL.createObjectURL(blob);
+      const downloadLink = document.createElement("a");
+      downloadLink.href = blobUrl;
+      downloadLink.download = fileName;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+
+      // Open Twitter intent composer
+      const twitterIntentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+      const a = document.createElement("a");
+      a.href = twitterIntentUrl;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      if (copiedToClipboard) {
+        alert(
+          "✨ Ticket image copied to your clipboard!\nPress Ctrl+V (or Cmd+V) to paste the image directly into your X post.",
+        );
+      }
+    } catch (err) {
+      console.error("Failed to share pass:", err);
+    } finally {
+      setBusy(false);
+    }
   };
 
   const reset = () => {
